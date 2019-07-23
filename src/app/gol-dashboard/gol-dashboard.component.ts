@@ -12,12 +12,6 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   ySize: number;
   cells: Cell[][]=[]; 
 
-  cell: Cell = {
-    coordX: 0,
-    coordY: 0,
-    isAlive: false
-  };
-
   constructor() { }
 
   ngOnInit() {
@@ -25,6 +19,18 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(){
+  }
+
+  isAlive(chosenCell: Cell){
+    chosenCell.isAlive = !chosenCell.isAlive;
+  }
+
+  clearDashboard(){
+    for (let indexY = 0; indexY < this.ySize; indexY++) {
+      for (let indexX = 0; indexX < this.xSize; indexX++) {
+        this.cells[indexY][indexX] = {coordX: indexX, coordY: indexY, isAlive: false};
+      }
+    }
   }
 
   onSubmit(dashboardXY: NgForm) {
@@ -42,7 +48,6 @@ export class GolDashboardComponent implements OnInit, OnChanges {
     for (let indexY = 0; indexY < this.ySize; indexY++) {
       for (let indexX = 0; indexX < this.xSize; indexX++) {
         this.cells[indexY][indexX] = {coordX: indexX, coordY: indexY, isAlive: false};
-        console.log("Creating: ", this.cells[indexY][indexX]);
       }
     }
   }

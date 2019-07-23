@@ -6,6 +6,7 @@
         <input name="ySize" [(ngModel)]="ySize" placeholder="max 25" />
     </label>
     <button>Submit</button>
+    <button (click)="clearDashboard()">Clear</button>
 </form>
 
 <div *ngIf="xSize>75||ySize>25||xSize<0||ySize<0" class="warning">
@@ -16,7 +17,7 @@
     <table class="game-board">
         <tr *ngFor="let cellRow of cells">
           <td *ngFor="let cell of cellRow">
-            <div class="cell"> </div>
+            <div class="cell" (click)="isAlive(cell)" [ngClass]="cell.isAlive ? 'alive' : ''"></div>
           </td>
         </tr>
       </table>

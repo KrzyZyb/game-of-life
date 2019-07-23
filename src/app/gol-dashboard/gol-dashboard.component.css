@@ -16,6 +16,16 @@ label{
     border: 1px;
     border-color: white
 }
+.cell.alive{
+    background-color: darkgreen;
+}
+.cell:hover{
+    height: 20px;
+    width: 20px;
+    background-color: greenyellow;
+    border: 1px;
+    border-color: white
+}
 .game-board-wrapper{
     text-align: center;
 }
