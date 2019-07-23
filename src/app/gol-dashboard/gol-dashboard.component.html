@@ -1,8 +1,23 @@
-<label>X-Size:
-    <input [(ngModel)]="xSize" placeholder="0" />
-</label>
-<label>Y-Size:
-    <input [(ngModel)]="ySize" placeholder="0" />
-</label>
-<div class="dashboard">
+<form #dashboardXY="ngForm" (ngSubmit)="onSubmit(dashboardXY)" novalidate>
+    <label>X-Size:
+        <input name="xSize" [(ngModel)]="xSize" placeholder="max 75" />
+    </label>
+    <label>Y-Size:
+        <input name="ySize" [(ngModel)]="ySize" placeholder="max 25" />
+    </label>
+    <button>Submit</button>
+</form>
+
+<div *ngIf="xSize>75||ySize>25||xSize<0||ySize<0" class="warning">
+<p>X Size should be not bigger than 75 and Y Size should be not bigger than 25</p>
+</div>
+
+<div *ngIf="xSize<=75&&ySize<=25&&xSize>0&&ySize>0" class="game-board-wrapper">
+    <table class="game-board">
+        <tr *ngFor="let cellRow of cells">
+          <td *ngFor="let cell of cellRow">
+            <div class="cell"> </div>
+          </td>
+        </tr>
+      </table>
 </div>
