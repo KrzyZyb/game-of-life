@@ -40,3 +40,18 @@ label{
     color: white;
     background-color: lightcoral;
 }
+.material-icons{
+    color: #369;
+    cursor: pointer;
+}
+.material-icons.active{
+    color: darkblue;
+}
+
+button{
+    cursor: pointer;
+}
+
+.material-icons:hover{
+    color: greenyellow;
+}
