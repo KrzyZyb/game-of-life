@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import { Cell } from './cell';
 import { element } from 'protractor';
 import { CoordPair } from './coordPair';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-gol-dashboard',
@@ -13,6 +14,7 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   xSize: Number;
   ySize: Number;
   cells: Cell[][]=[]; 
+  isPlayed: boolean = false;
 
   constructor() { }
 
@@ -24,6 +26,7 @@ export class GolDashboardComponent implements OnInit, OnChanges {
 
   isAlive(chosenCell: Cell){
     chosenCell.isAlive = !chosenCell.isAlive;
+    this.getAllCells();
   }
 
   clearDashboard(){
@@ -84,5 +87,62 @@ export class GolDashboardComponent implements OnInit, OnChanges {
         .filter(xy => xy.y<tempYySize);
         return neighbourCoords;
     }
+  }
+
+  prepareNextRound(){
+    for (let indexY = 0; indexY < this.ySize; indexY++) {
+      for (let indexX = 0; indexX < this.xSize; indexX++) {
+        let cell = this.cells[indexY][indexX];
+        let numberOfLivingNeighbours = this.countCellsLivingNeighbours(cell.neighbours);
+        if (numberOfLivingNeighbours == 3) { 
+          cell.isAboutToLive=true; 
+          console.log("Cell", cell ,"resurected!")
+        }
+        else if (numberOfLivingNeighbours == 2 && cell.isAlive) {
+          cell.isAboutToLive=true;
+          console.log("Cell", cell ,"sustained!");
+        }
+        else{ cell.isAboutToLive=false}
+      }
+    }
+    this.getAllCells().forEach(cell => setCellsStatus(cell));
+
+    function setCellsStatus(cell: Cell){
+      if(cell.isAboutToLive){
+        cell.isAlive = true;
+        cell.isAboutToLive=false;
+      }else{
+        cell.isAlive = false;
+        cell.isAboutToLive = false;
+      }
+    }
+  }
+
+  countCellsLivingNeighbours(neighbours: CoordPair[] ){
+    let numberOfLivingNeighbours = 0;
+    neighbours.forEach(element => {
+      if (this.cells[element.y][element.x].isAlive){
+        numberOfLivingNeighbours++;
+        console.log("Living neighbour found on x: ",element.x," y ",element.y);
+      }
+    });
+    return numberOfLivingNeighbours;
+  }
+
+  getAllCells(){
+    let allCells: Cell[] = [];
+    this.cells.forEach(row => 
+      {row.forEach( element => allCells.push(element))
+    });
+    return allCells;
+  }
+
+  async playInLoop(){
+    this.isPlayed = !this.isPlayed;
+    while(this.isPlayed){
+      this.prepareNextRound();
+      await new Promise(done => setTimeout(() => done(), 1000));  
+    }
+
   }
 }
