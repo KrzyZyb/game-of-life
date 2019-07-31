@@ -10,9 +10,18 @@
     <ng-template #clearBlock><button (click)="clearDashboard()">Clear</button></ng-template>
 </form>
 <div *ngIf="isPlayed; then pausedBlock else playedBlock"></div>
-<ng-template #playedBlock><i class="material-icons" (click)="playInLoop()">play_arrow</i></ng-template>
-<ng-template #pausedBlock><i class="material-icons" (click)="playInLoop()">pause</i></ng-template>
-<i class="material-icons" (click)="prepareNextRound()">skip_next </i>
+
+<ng-template #playedBlock>
+  <i *ngIf="cells.length!=0" class="material-icons" (click)="playInLoop()">play_arrow</i>
+  <i *ngIf="cells.length==0" class="material-icons inactive">play_arrow</i>
+</ng-template>
+
+<ng-template #pausedBlock>
+  <i *ngIf="cells.length!=0" class="material-icons" (click)="playInLoop()">pause</i>
+  <i *ngIf="cells.length==0" class="material-icons inactive">pause</i>
+</ng-template>
+<i *ngIf="cells.length!=0" class="material-icons" (click)="prepareNextRound()">skip_next </i>
+<i *ngIf="cells.length==0" class="material-icons inactive">skip_next </i>
   <div *ngIf="xSize>75||ySize>25||xSize<0||ySize<0" class="warning">
     <p>X Size should be not bigger than 75 and Y Size should be not bigger than 25</p>
   </div>

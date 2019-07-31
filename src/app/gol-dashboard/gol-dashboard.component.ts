@@ -135,7 +135,7 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   }
 
   async playInLoop(){
-    console.log("IS_PLAYED:",this.isPlayed);
+    console.log("Length:",this.cells.length);
     this.isPlayed = !this.isPlayed;
     while(this.isPlayed){
       this.prepareNextRound();

@@ -55,3 +55,7 @@ button{
 .material-icons:hover{
     color: greenyellow;
 }
+.material-icons.inactive{
+    color: gray;
+    cursor: default;
+}
