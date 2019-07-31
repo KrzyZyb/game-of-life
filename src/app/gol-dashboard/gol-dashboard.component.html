@@ -5,8 +5,9 @@
     <label>Y-Size:
         <input name="ySize" [(ngModel)]="ySize" placeholder="max 25" />
     </label>
-    <button>Submit</button>
-    <button (click)="clearDashboard()">Clear</button>
+    <div *ngIf="cells.length==0 then submitBlock else clearBlock"></div>
+    <ng-template #submitBlock><button>Submit</button></ng-template>
+    <ng-template #clearBlock><button (click)="clearDashboard()">Clear</button></ng-template>
 </form>
 <div *ngIf="isPlayed; then pausedBlock else playedBlock"></div>
 <ng-template #playedBlock><i class="material-icons" (click)="playInLoop()">play_arrow</i></ng-template>
