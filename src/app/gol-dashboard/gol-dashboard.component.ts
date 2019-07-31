@@ -14,7 +14,7 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   xSize: Number;
   ySize: Number;
   cells: Cell[][]=[]; 
-  isPlayed: boolean = false;
+  public isPlayed: boolean = false;
 
   constructor() { }
 
@@ -96,11 +96,9 @@ export class GolDashboardComponent implements OnInit, OnChanges {
         let numberOfLivingNeighbours = this.countCellsLivingNeighbours(cell.neighbours);
         if (numberOfLivingNeighbours == 3) { 
           cell.isAboutToLive=true; 
-          console.log("Cell", cell ,"resurected!")
         }
         else if (numberOfLivingNeighbours == 2 && cell.isAlive) {
           cell.isAboutToLive=true;
-          console.log("Cell", cell ,"sustained!");
         }
         else{ cell.isAboutToLive=false}
       }
@@ -123,7 +121,6 @@ export class GolDashboardComponent implements OnInit, OnChanges {
     neighbours.forEach(element => {
       if (this.cells[element.y][element.x].isAlive){
         numberOfLivingNeighbours++;
-        console.log("Living neighbour found on x: ",element.x," y ",element.y);
       }
     });
     return numberOfLivingNeighbours;
@@ -138,6 +135,7 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   }
 
   async playInLoop(){
+    console.log("IS_PLAYED:",this.isPlayed);
     this.isPlayed = !this.isPlayed;
     while(this.isPlayed){
       this.prepareNextRound();

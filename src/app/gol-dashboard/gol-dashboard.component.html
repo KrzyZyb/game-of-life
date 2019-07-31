@@ -8,11 +8,13 @@
     <button>Submit</button>
     <button (click)="clearDashboard()">Clear</button>
 </form>
-<i class="material-icons"> pause </i> <i class="material-icons" (click)="prepareNextRound()"> skip_next </i> <i class="material-icons play" [ngClass]="isActive ? 'active' : ''" (click)="playInLoop()"> play_arrow </i>
-
-<div *ngIf="xSize>75||ySize>25||xSize<0||ySize<0" class="warning">
-<p>X Size should be not bigger than 75 and Y Size should be not bigger than 25</p>
-</div>
+<div *ngIf="isPlayed; then pausedBlock else playedBlock"></div>
+<ng-template #playedBlock><i class="material-icons" (click)="playInLoop()">play_arrow</i></ng-template>
+<ng-template #pausedBlock><i class="material-icons" (click)="playInLoop()">pause</i></ng-template>
+<i class="material-icons" (click)="prepareNextRound()">skip_next </i>
+  <div *ngIf="xSize>75||ySize>25||xSize<0||ySize<0" class="warning">
+    <p>X Size should be not bigger than 75 and Y Size should be not bigger than 25</p>
+  </div>
 
 <div *ngIf="xSize<=75&&ySize<=25&&xSize>0&&ySize>0" class="game-board-wrapper">
     <table class="game-board">
