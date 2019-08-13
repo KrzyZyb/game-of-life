@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Game-of-Life';
+  isPaused: boolean = false;
+
+  pauseListener($event){
+    console.log($event);
+    this.isPaused=$event;
+  }
 }

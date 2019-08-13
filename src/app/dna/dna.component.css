@@ -17,6 +17,9 @@
     transform: rotateX(-360deg);
     animation: run 2s linear infinite;
   }
+  .ele.paused {
+    animation-play-state: paused;
+  }
   .ele:before, .ele:after {
     content: " ";
     width: 10px;

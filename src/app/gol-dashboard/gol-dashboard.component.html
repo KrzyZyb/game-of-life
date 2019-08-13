@@ -9,14 +9,14 @@
     <ng-template #submitBlock><button>Submit</button></ng-template>
     <ng-template #clearBlock><button (click)="clearDashboard()">Clear</button></ng-template>
 </form>
-<div *ngIf="isPlayed; then pausedBlock else playedBlock"></div>
+<div *ngIf="isPlayed; then playedBlock else pausedBlock"></div>
 
-<ng-template #playedBlock>
+<ng-template #pausedBlock>
   <i *ngIf="cells.length!=0" class="material-icons" (click)="playInLoop()">play_arrow</i>
   <i *ngIf="cells.length==0" class="material-icons inactive">play_arrow</i>
 </ng-template>
 
-<ng-template #pausedBlock>
+<ng-template #playedBlock>
   <i *ngIf="cells.length!=0" class="material-icons" (click)="playInLoop()">pause</i>
   <i *ngIf="cells.length==0" class="material-icons inactive">pause</i>
 </ng-template>

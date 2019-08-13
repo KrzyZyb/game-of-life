@@ -1,7 +1,7 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Cell } from './cell';
-import { element } from 'protractor';
+import { element} from 'protractor';
 import { CoordPair } from './coordPair';
 import { delay } from 'q';
 
@@ -15,6 +15,8 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   ySize: Number;
   cells: Cell[][]=[]; 
   public isPlayed: boolean = false;
+  @Output() 
+  isPaused: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -135,8 +137,8 @@ export class GolDashboardComponent implements OnInit, OnChanges {
   }
 
   async playInLoop(){
-    console.log("Length:",this.cells.length);
     this.isPlayed = !this.isPlayed;
+    this.isPaused.emit(!this.isPlayed);
     while(this.isPlayed){
       this.prepareNextRound();
       await new Promise(done => setTimeout(() => done(), 1000));  

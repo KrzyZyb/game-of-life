@@ -5,7 +5,6 @@ export class Cell {
     coordY: number;
     isAlive?: boolean;
     isAboutToLive?: boolean;
-    isAboutToDie?: boolean;
     neighbours?: CoordPair[] =[];
 
     constructor(coordX: number, coordY: number){

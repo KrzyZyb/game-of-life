@@ -1,12 +1,11 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
     {{ title }}
   </h1>
-  <app-dna></app-dna>
+  <app-dna [isPaused]="isPaused"></app-dna>
   <br>
   <br>
-  <app-gol-dashboard></app-gol-dashboard>
+  <app-gol-dashboard (isPaused)="pauseListener($event)"></app-gol-dashboard>
 </div>
 
 
